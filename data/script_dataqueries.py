@@ -213,54 +213,66 @@ select department, job,
       (case when quarter = 4 then conteo else 0 end) Q4
 from
 (
-SELECT d.department, COALESCE(j.job,'Undefined') as Job, EXTRACT(QUARTER FROM to_date(e.field2,'YYYY-MM-DD')) as quarter,
+SELECT COALESCE(d.department,'Undefined') as department, COALESCE(j.job,'Undefined') as Job, EXTRACT(QUARTER FROM to_date(e.field2,'YYYY-MM-DD')) as quarter,
 count(*) conteo
 FROM "public"."hired_employees" e
 LEFT JOIN "public"."departments" d ON d.id = e.department_id
 LEFT JOIN "public"."jobs" j ON j.id = e.job_id
 WHERE DATE_PART('Year', to_date(e.field2,'YYYY-MM-DD')) = '2021'
-AND d.department = 'Accounting'
 group by 1,2,3
 )r
+order by department,job
 
-
-
-
-
-select avg(conteo)::float from (
-SELECT d.department, d.id, EXTRACT(QUARTER FROM to_date(e.field2,'YYYY-MM-DD')) as quarter,
-count(*) conteo
-FROM "public"."hired_employees" e
-LEFT JOIN "public"."departments" d ON d.id = e.department_id
-WHERE DATE_PART('Year', to_date(e.field2,'YYYY-MM-DD')) = '2021'
-AND d.department = 'Accounting'
-group by 1,2,3
-)
-d
-
-
-SELECT id, department, conteo (
-SELECT d.id, d.department, count(*) conteo
-FROM "public"."hired_employees" e
-LEFT JOIN "public"."departments" d ON d.id = e.department_id
-) r
-where r.conteo > 9.5
 
 
 # query 2
-SELECT d.id, COALESCE(d.department ,'Undefined') department , count(*) conteo
-FROM "public"."hired_employees" e
-LEFT JOIN "public"."departments" d ON d.id = e.department_id
-group by 1,2
-having count(*) > (select avg(conteo)::float from (
-SELECT d.department, d.id, EXTRACT(QUARTER FROM to_date(e.field2,'YYYY-MM-DD')) as quarter,
+SELECT d.id,
+       COALESCE(d.department, 'Undefined') department,
+       count(*) hired
+FROM public.hired_employees e
+LEFT JOIN public.departments d ON d.id = e.department_id
+GROUP BY 1,2
+HAVING count(*) > (SELECT avg(hired)::float FROM
+     (SELECT d.department,
+             count(*) hired
+      FROM public.hired_employees e
+      LEFT JOIN public.departments d ON d.id = e.department_id
+      WHERE DATE_PART('Year', to_date(e.field2, 'YYYY-MM-DD')) = '2021'
+      GROUP BY 1
+      )
+      d)
+ORDER BY 3 DESC;
+
+
+
+SELECT EXTRACT(YEAR FROM to_date(e.hired_date,'YYYY-MM-DD')) as year,
 count(*) conteo
-FROM "public"."hired_employees" e
-LEFT JOIN "public"."departments" d ON d.id = e.department_id
-WHERE DATE_PART('Year', to_date(e.field2,'YYYY-MM-DD')) = '2021'
-AND d.department = 'Accounting'
-group by 1,2,3
+FROM "mydatabase"."hr" e
+group by 1
+
+
+-- coalesce(hired_date, '1900-01-01T00:00:00Z') as year,
+
+"compression": "snappy",
+
+
+
+
+select "id",
+    "employee_name",
+    "hired_date",
+    "department_id",
+    "job_id" from (
+SELECT 
+    "id",
+    "employee_name",
+    from_iso8601_timestamp((CASE WHEN "hired_date" = '' THEN '1900-01-01T00:00:00Z' ELSE "hired_date" END)) as hired_date,
+    coalesce("department_id",0) as department_id,
+    coalesce("job_id",0) as job_id
+FROM "mydatabase"."hr"
 )
-d
-)
-order by 3 desc
+r 
+where YEAR(r.hired_date) = 2021
+
+
+DATABASE_URL=postgres://tmpbgfex:5PxdjFvO6vzWunkr12HfvNYpdCa-pTWw@batyr.db.elephantsql.com/tmpbgfex

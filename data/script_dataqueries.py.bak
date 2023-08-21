@@ -248,7 +248,7 @@ where r.conteo > 9.5
 
 
 # query 2
-SELECT d.id, d.department, count(*) conteo
+SELECT d.id, COALESCE(d.department ,'Undefined') department , count(*) conteo
 FROM "public"."hired_employees" e
 LEFT JOIN "public"."departments" d ON d.id = e.department_id
 group by 1,2
@@ -263,3 +263,4 @@ group by 1,2,3
 )
 d
 )
+order by 3 desc
