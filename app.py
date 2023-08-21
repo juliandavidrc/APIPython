@@ -104,3 +104,23 @@ def query_req1():
                 objdata.append(dict(zip(columns, row)))
                 
     return {"Result": objdata,}, 200    
+
+
+@app.get("/query/req2")
+def query_req2():               
+
+    # Queries Number employees by department with count > avg departments in 2021
+    query2 = "SELECT d.id, COALESCE(d.department ,'Undefined') department , count(*) hired FROM public.hired_employees e LEFT JOIN public.departments d ON d.id = e.department_id group by 1,2 having count(*) >(select avg(hired)::float from ( SELECT d.department, count(*) hired FROM public.hired_employees e LEFT JOIN public.departments d ON d.id = e.department_id WHERE DATE_PART('Year', to_date(e.field2,'YYYY-MM-DD')) = '2021' group by 1 ) d ) order by 3 desc;"
+
+    ## Query2: List of ids, name and number of employees hired of each department that hired more employees than the mean of employees
+    #  hired in 2021 for all the departments, ordered by the number of employees hired (descending).
+    with connection:
+        with connection.cursor() as cursor:
+            #Load Deparment Hired Emp
+            cursor.execute(query2)            
+            columns = [column[0] for column in cursor.description]
+            objdata = []          
+            for row in cursor.fetchall():
+                objdata.append(dict(zip(columns, row)))    
+            
+    return {"Result": objdata,}, 200
