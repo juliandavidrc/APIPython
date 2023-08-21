@@ -92,12 +92,15 @@ def query_hiredemp():
 def query_req1():               
 
     # Queries Hired Employees
-    query1 = "select department, job, (case when quarter = 1 then conteo else 0 end) Q1, (case when quarter = 2 then conteo else 0 end) Q2, (case when quarter = 3 then conteo else 0 end) Q3, (case when quarter = 4 then conteo else 0 end) Q4 from ( SELECT d.department, COALESCE(j.job,'Undefined') as Job, EXTRACT(QUARTER FROM to_date(e.field2,'YYYY-MM-DD')) as quarter, count(*) conteo FROM public.hired_employees e LEFT JOIN public.departments d ON d.id = e.department_id LEFT JOIN public.jobs j ON j.id = e.job_id WHERE DATE_PART('Year', to_date(e.field2,'YYYY-MM-DD')) = '2021' group by 1,2,3 )r order by department,job;"
+    query1 = "select department, job, (case when quarter = 1 then conteo else 0 end) Q1, (case when quarter = 2 then conteo else 0 end) Q2, (case when quarter = 3 then conteo else 0 end) Q3, (case when quarter = 4 then conteo else 0 end) Q4 from ( SELECT COALESCE(d.department,'Undefined') as department, COALESCE(j.job,'Undefined') as Job, EXTRACT(QUARTER FROM to_date(e.field2,'YYYY-MM-DD')) as quarter, count(*) conteo FROM public.hired_employees e LEFT JOIN public.departments d ON d.id = e.department_id LEFT JOIN public.jobs j ON j.id = e.job_id WHERE DATE_PART('Year', to_date(e.field2,'YYYY-MM-DD')) = '2021' group by 1,2,3 )r order by department,job;"
 
     ## Query1: Number of employees hired for each job and department in 2021 divided by quarter. The table must be ordered alphabetically by department and job.
     with connection:
         with connection.cursor() as cursor:            
             cursor.execute(query1)    
-            qry1result = cursor.fetchall()            
+            columns = [column[0] for column in cursor.description]
+            objdata = []          
+            for row in cursor.fetchall():
+                objdata.append(dict(zip(columns, row)))
                 
-    return {"Result": qry1result,}, 200
+    return {"Result": objdata,}, 200    
