@@ -18,6 +18,6 @@ http://127.0.0.1:5000/query/req1, endpoint JSON result [jsonqry1](results_querys
 ![Alt text](images/qr3.jpg)
 
 * Query2: List of ids, name and number of employees hired of each department that hired more employees than the mean of employees hired in 2021 for all the departments, ordered by the number of employees hired (descending).
-http://127.0.0.1:5000/query/req2, endpoint JSON result 
+http://127.0.0.1:5000/query/req2, endpoint JSON result [jsonqry2](results_querys_endpoint/qry2.json)
 
 ![Alt text](images/qr2_2.jpg)
