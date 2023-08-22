@@ -31,19 +31,19 @@ http://127.0.0.1:5000/query/req2, endpoint JSON result [jsonqry2](results_querys
 ![Alt text](aws_solution/GlueCrawlers.JPG)
 
 * AWS GlueDatabase
-![Alt text](aws_solution/GlueDatabase.jpg)
+![Alt text](aws_solution/GlueDatabase.JPG)
 
 * AWS GlueTables
-![Alt text](aws_solution/GlueTables.jpg)
+![Alt text](aws_solution/GlueTables.JPG)
 
 * AWS GlueTable Hired Employees
-![Alt text](aws_solution/GlueTableHR.jpg)
+![Alt text](aws_solution/GlueTableHR.JPG)
 
 * AWS Athena Service
-![Alt text](aws_solution/AthenaService.jpg)
+![Alt text](aws_solution/AthenaService.JPG)
 
 * AWS IAM_RoleGlue
-![Alt text](aws_solution/IAM_RoleGlue.jpg)
+![Alt text](aws_solution/IAM_RoleGlue.JPG)
 
 * AWS Analysis Hired Employees by Dept, Quarter, 2021
 ![Alt text](aws_solution/hired_emp_bydept_by_q.jpg)
