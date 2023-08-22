@@ -22,7 +22,7 @@ http://127.0.0.1:5000/query/req2, endpoint JSON result [jsonqry2](results_querys
 
 ![Alt text](images/qr2_2.jpg)
 
-## AWS SOoution Services
+## AWS Solution Services
 
 * AWS S3 
 ![Alt text](aws_solution/s3buckets.jpg)
