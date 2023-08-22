@@ -21,3 +21,38 @@ http://127.0.0.1:5000/query/req1, endpoint JSON result [jsonqry1](results_querys
 http://127.0.0.1:5000/query/req2, endpoint JSON result [jsonqry2](results_querys_endpoint/qry2.json)
 
 ![Alt text](images/qr2_2.jpg)
+
+## AWS SOlution Services
+
+* AWS S3 
+![Alt text](aws_solution/s3buckets.jpg)
+
+* AWS GlueCrawlers
+![Alt text](aws_solution/GlueCrawlers.jpg)
+
+* AWS GlueDatabase
+![Alt text](aws_solution/GlueDatabase.jpg)
+
+* AWS GlueTables
+![Alt text](aws_solution/GlueTables.jpg)
+
+* AWS GlueTable Hired Employees
+![Alt text](aws_solution/GlueTableHR.jpg)
+
+* AWS Athena Service
+![Alt text](aws_solution/AthenaService.jpg)
+
+* AWS IAM_RoleGlue
+![Alt text](aws_solution/IAM_RoleGlue.jpg)
+
+* AWS Analysis Hired Employees by Dept, Quarter, 2021
+![Alt text](aws_solution/hired_emp_bydept_by_q.jpg)
+
+* AWS Analysis Hired Employees by Dept, Job, Quarter, 2021
+![Alt text](aws_solution/hired_emp_bydept_job_by_q.jpg)
+
+* AWS Horizontal Bar Chart by Dept, 2021, Drill Down
+![Alt text](aws_solution/analysis2.jpg)
+
+* AWS Horizontal Bar Chart by Dept, Quarter, 2021, Drill Down
+![Alt text](aws_solution/analysis21.jpg)
