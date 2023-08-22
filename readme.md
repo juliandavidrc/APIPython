@@ -22,13 +22,13 @@ http://127.0.0.1:5000/query/req2, endpoint JSON result [jsonqry2](results_querys
 
 ![Alt text](images/qr2_2.jpg)
 
-## AWS SOlution Services
+## AWS SOoution Services
 
 * AWS S3 
 ![Alt text](aws_solution/s3buckets.jpg)
 
 * AWS GlueCrawlers
-![Alt text](aws_solution/GlueCrawlers.jpg)
+![Alt text](aws_solution/GlueCrawlers.JPG)
 
 * AWS GlueDatabase
 ![Alt text](aws_solution/GlueDatabase.jpg)
